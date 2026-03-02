@@ -1,4 +1,4 @@
-# Copyright 2025 Trossen Robotics
+# Copyright 2026 Trossen Robotics
 #
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -43,6 +43,7 @@ EXTENSION_TOML_DATA = toml.load(
 # Minimum dependencies required prior to installation
 INSTALL_REQUIRES = [
     "psutil",
+    "trossen_arm",
 ]
 
 # Installation operation
