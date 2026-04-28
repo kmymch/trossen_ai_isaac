@@ -219,7 +219,8 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, expe
     print(f"[INFO] Loading model checkpoint from: {resume_path}")
     runner.agent.load(resume_path)
     # set agent to evaluation mode
-    runner.agent.set_running_mode("eval")
+    # runner.agent.set_running_mode("eval")
+    runner.run("eval")
 
     # reset environment
     obs, _ = env.reset()

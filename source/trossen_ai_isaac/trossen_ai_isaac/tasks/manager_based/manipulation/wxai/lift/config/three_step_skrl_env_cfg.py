@@ -62,7 +62,7 @@ class RewardsCfg:
 
     # 1.1, 15.0, 16.0, 5.0はそれぞれreaching, lifting, coarse/fine object_goal_trackingの重み。rewardの値自体は、stdなどのtermのパラメータによって変わるため、重みはあくまで相対的なもの。
 
-    reaching_object = RewTerm(func=mdp.object_ee_distance, params={"std": 0.1}, weight=0.0)
+    reaching_object = RewTerm(func=mdp.object_ee_distance, params={"std": 0.1}, weight=10.0)
 
     lifting_object = RewTerm(func=mdp.object_is_lifted, params={"minimal_height": 0.04}, weight=0.0)
 
@@ -87,7 +87,9 @@ class RewardsCfg:
         params={"asset_cfg": SceneEntityCfg("robot", joint_names=["joint_[0-5]", "left_carriage_joint"])},
     )
 
-    pre_grasp = RewTerm(func=mdp.pre_grasp, params={"distance_std": 0.10, "rotation_std": 0.1}, weight=10.0)
+    # pre_grasp = RewTerm(func=mdp.pre_grasp, params={"distance_std": 0.10, "rotation_std": 0.1}, weight=10.0)
+
+    object_inside_gripper_binary = RewTerm(func=mdp.object_inside_gripper_binary, weight=100.0)
 
 
 ### カリキュラム学習用のconfig
@@ -106,20 +108,20 @@ class CurriculumCfg:
         params={"term_name": "joint_vel", "weight": -1e-1, "num_steps": 10000},
     )
 
-    lifting_object = CurrTerm(
-        func=mdp.modify_reward_weight,
-        params={"term_name": "lifting_object", "weight": 10.0, "num_steps": 10000},
-    )
+    # lifting_object = CurrTerm(
+    #     func=mdp.modify_reward_weight,
+    #     params={"term_name": "lifting_object", "weight": 10.0, "num_steps": 10000},
+    # )
 
     # reaching_object = CurrTerm(
     #     func=mdp.modify_reward_weight,
     #     params={"term_name": "reaching_object", "weight": 1.0, "num_steps": 10000},
     # )
 
-    pre_grasp = CurrTerm(
-        func=mdp.modify_reward_weight,
-        params={"term_name": "pre_grasp", "weight": 20.0, "num_steps": 10000},
-    )
+    # pre_grasp = CurrTerm(
+    #     func=mdp.modify_reward_weight,
+    #     params={"term_name": "pre_grasp", "weight": 20.0, "num_steps": 10000},
+    # )
 
 
 
